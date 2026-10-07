@@ -1,0 +1,88 @@
+:root{
+  --negro:#0a0a0c; --panel:#121216; --borde:#2a1a20;
+  --rojo:#e8123f; --rojo-osc:#5a0b1c; --blanco:#f7f3f2; --gris:#a9a2a5;
+  --serif:'Playfair Display',Georgia,serif; --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--negro);color:var(--blanco);font-family:var(--sans);overflow-x:hidden;
+  background-image:radial-gradient(ellipse at 85% 10%,rgba(232,18,63,.12),transparent 50%),radial-gradient(ellipse at 10% 90%,rgba(232,18,63,.08),transparent 50%)}
+em{font-style:italic;color:var(--rojo)}
+.luz{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(260px circle at var(--x,50%) var(--y,50%),rgba(232,18,63,.14),transparent 70%)}
+.petalos{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.petalo{position:absolute;top:-30px;width:14px;height:18px;background:var(--rojo);border-radius:100% 0 100% 0;opacity:.85;animation:cae linear forwards}
+.petalo.negro{background:#2b0f17;box-shadow:0 0 0 1px #6a1a2e}
+@keyframes cae{to{transform:translate(var(--dx),110vh) rotate(var(--rot))}}
+
+.pantalla{display:none;position:relative;z-index:1;min-height:100vh;padding:24px 6vw 28px;flex-direction:column}
+.pantalla.activa{display:flex;animation:entra .6s ease}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}}
+.barra{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--borde)}
+.logo{font-family:var(--serif);font-weight:700;font-size:1.2rem}.logo i{color:var(--rojo);font-style:normal;font-size:.8em}
+.mini{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+.rojo{color:var(--rojo)}
+.cuerpo{flex:1;display:flex;align-items:center}
+.dos-col{gap:5vw;justify-content:space-between}
+.texto{max-width:560px}
+h1,h2{font-family:var(--serif);font-weight:500;line-height:1.05}
+h1{font-size:clamp(2.6rem,6vw,4.6rem);margin:18px 0 20px}
+h2{font-size:clamp(2.2rem,5vw,3.4rem);margin:14px 0 14px}
+h2.grande{font-size:clamp(2.8rem,7vw,5rem)}
+h3{font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.6rem;margin:14px 0 18px}
+.sub{color:var(--gris);line-height:1.6;max-width:42ch}
+
+/* botones de la pregunta */
+.acciones{position:relative;height:150px;margin-top:28px}
+.btn-si,.btn-no,.btn-sig{font-family:var(--sans);cursor:pointer;border:0;transition:transform .35s cubic-bezier(.3,1.5,.5,1),left .35s,top .35s,box-shadow .2s}
+.btn-si{position:absolute;left:0;top:0;transform-origin:left top;background:var(--rojo);color:#fff;font-size:1.1rem;font-weight:600;padding:16px 28px;box-shadow:0 8px 30px rgba(232,18,63,.35);z-index:2}
+.btn-si:hover{box-shadow:0 8px 44px rgba(232,18,63,.6)}
+.btn-no{position:absolute;left:0;bottom:0;background:transparent;color:var(--gris);border:1px solid var(--borde);padding:8px 18px;font-size:.85rem}
+.error{color:#ff6b86;font-size:.85rem;margin-top:12px;min-height:1.4em;opacity:0;transition:opacity .2s}
+.error.ver{opacity:1;animation:tiembla .4s}
+@keyframes tiembla{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* marco con la rosa */
+.marco{position:relative;width:min(380px,38vw);flex-shrink:0;padding:10px;border:1px solid var(--borde)}
+.rosa{display:block;width:100%;background:linear-gradient(160deg,#050506,var(--rojo-osc));animation:flota 6s ease-in-out infinite}
+@keyframes flota{50%{transform:translateY(-6px)}}
+.etiqueta{position:absolute;left:-40px;bottom:50px;background:var(--panel);border:1px solid var(--borde);padding:10px 14px;font-size:.75rem;color:var(--rojo)}
+.etiqueta b{display:block;color:var(--blanco);font-weight:500}
+.marco figcaption{margin-top:12px}
+.pie{display:flex;justify-content:space-between;padding-top:18px}
+
+/* plan */
+.angosto{flex-direction:column;align-items:flex-start;justify-content:center;max-width:760px;width:100%;margin:0 auto}
+.pasos{display:flex;gap:18px;list-style:none;margin:30px 0 18px;flex-wrap:wrap}
+.pasos li{font-size:.8rem;color:var(--gris);display:flex;align-items:center;gap:8px}
+.pasos li::before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1px solid var(--borde);font-size:.65rem}
+.pasos{counter-reset:p}
+.pasos li.on{color:var(--blanco)}.pasos li.on::before{background:var(--rojo);border-color:var(--rojo)}
+.pasos li.hecho::before{content:"✓";border-color:var(--rojo);color:var(--rojo)}
+.tarjeta{width:100%;background:var(--panel);border:1px solid var(--borde);padding:28px}
+.paso{display:none}.paso.activo{display:block;animation:entra .4s}
+input{width:100%;background:var(--negro);border:1px solid #33242a;color:var(--blanco);padding:16px;font:inherit;font-size:1rem;color-scheme:dark}
+input:focus{outline:2px solid var(--rojo);outline-offset:2px}
+.opciones{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.opciones button{background:var(--negro);color:var(--blanco);border:1px solid #33242a;padding:12px 18px;font:inherit;cursor:pointer;transition:.2s}
+.opciones button:hover{border-color:var(--rojo)}
+.opciones button.sel{background:var(--rojo);border-color:var(--rojo)}
+.nav{display:flex;justify-content:flex-end;margin-top:24px;padding-top:20px;border-top:1px dashed var(--borde)}
+.btn-sig{background:var(--rojo);color:#fff;padding:14px 26px;font-size:1rem;font-weight:500}
+.btn-sig:disabled{opacity:.35;cursor:not-allowed}
+.volver{background:none;border:0;color:var(--gris);font:inherit;cursor:pointer}.volver:hover{color:var(--blanco)}
+
+/* final */
+.centrada{align-items:center;justify-content:center;text-align:center;gap:14px}
+.centrada .sub{margin-inline:auto}
+.corazon{display:grid;place-items:center;width:70px;height:70px;border-radius:50%;border:1px solid var(--rojo);color:var(--rojo);font-size:1.8rem;animation:late 1.2s infinite}
+@keyframes late{50%{transform:scale(1.12);box-shadow:0 0 30px rgba(232,18,63,.5)}}
+.resumen{margin:14px 0;padding:22px 40px;border:1px solid var(--rojo-osc);background:var(--panel);text-align:left;min-width:min(420px,90vw)}
+.resumen h3{font-style:normal;margin:8px 0 6px}.resumen p:not(.mini){color:var(--gris);font-size:.9rem;margin-top:4px}
+
+@media(max-width:800px){
+  .dos-col{flex-direction:column-reverse;padding-top:20px}
+  .marco{width:70vw}.etiqueta{left:-10px}
+  .pie{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
